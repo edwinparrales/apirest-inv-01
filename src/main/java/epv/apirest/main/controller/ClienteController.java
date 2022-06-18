@@ -5,9 +5,7 @@ import epv.apirest.main.servicio.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,9 +15,16 @@ import java.util.List;
 public class ClienteController {
     @Autowired
     ClienteService clService;
-    @GetMapping("/listar")
-    public ResponseEntity<List<Cliente>> listar(){
 
-        return  new ResponseEntity<List<Cliente>>(clService.listar(), HttpStatus.OK);
+    @GetMapping("/listar")
+    public ResponseEntity<List<Cliente>> listar() {
+
+        return new ResponseEntity<>(clService.listar(), HttpStatus.OK);
+    }
+
+    @PostMapping("/crear")
+    public ResponseEntity<Cliente> crear(@RequestBody Cliente cliente) {
+
+        return new ResponseEntity<>(clService.crear(cliente), HttpStatus.CREATED);
     }
 }
