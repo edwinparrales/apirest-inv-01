@@ -1,15 +1,16 @@
 package epv.apirest.main.modelo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigInteger;
 
 @Entity
 @Table(name = "clientes")
-public class Cliente {
-    @Id
-    @Column(unique = true)
+public class Cliente implements Serializable {
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     @Column(name = "id_cliente")
+     private Integer id;
      private String documento;
      private String nombre;
      private String email;
@@ -17,6 +18,14 @@ public class Cliente {
      private String direccion;
      private String ciudad;
      private String barrio;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getDocumento() {
         return documento;
@@ -77,7 +86,8 @@ public class Cliente {
     @Override
     public String toString() {
         return "Cliente{" +
-                "documento='" + documento + '\'' +
+                "id=" + id +
+                ", documento='" + documento + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", email='" + email + '\'' +
                 ", telefono='" + telefono + '\'' +

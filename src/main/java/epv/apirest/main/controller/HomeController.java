@@ -12,7 +12,7 @@ public class HomeController {
     @GetMapping("/saludo")
     public String saludo(){
         LocalDateTime fechahora = LocalDateTime.now();
-        return "Hola desde Spring boot hora"+fechahora;
+        return "Elecciones presidenciales"+fechahora;
     }
 
 }

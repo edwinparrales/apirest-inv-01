@@ -17,7 +17,7 @@ public class AppCrudApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Cliente cl = new Cliente();
+       /* Cliente cl = new Cliente();
         cl.setBarrio("Villanueva");
         cl.setCiudad("Cali");
         cl.setDireccion("Calle 32");
@@ -38,6 +38,6 @@ public class AppCrudApplication implements CommandLineRunner {
         cl.setDocumento("5652656565");
         cl.setEmail("pepe82@hotmail.com");
         cl.setNombre("Pedro Marquez");
-        clienteService.crear(cl);
+        clienteService.crear(cl);*/
     }
 }

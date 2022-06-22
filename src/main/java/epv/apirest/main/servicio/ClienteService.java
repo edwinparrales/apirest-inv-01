@@ -12,11 +12,15 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
-    public Cliente crear(Cliente cl){
+    public Cliente crear(Cliente cl) {
         return clienteRepository.save(cl);
     }
 
-    public List<Cliente> listar(){
+    public List<Cliente> listar() {
         return (List<Cliente>) clienteRepository.findAll();
+    }
+
+    public void eliminar(String dni){
+        clienteRepository.deleteById(dni);
     }
 }

@@ -2,8 +2,7 @@ package epv.apirest.main.modelo;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-@Entity
-@Table(name = "catalogo_productos")
+
 public class CatalogoProducto {
     @Id
     @Column(unique = true)

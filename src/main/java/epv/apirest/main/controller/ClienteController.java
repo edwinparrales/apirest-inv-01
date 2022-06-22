@@ -17,14 +17,18 @@ public class ClienteController {
     ClienteService clService;
 
     @GetMapping("/listar")
-    public ResponseEntity<List<Cliente>> listar() {
+    public ResponseEntity<List<Cliente>> list() {
 
         return new ResponseEntity<>(clService.listar(), HttpStatus.OK);
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Cliente> crear(@RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> save(@RequestBody Cliente cliente) {
 
         return new ResponseEntity<>(clService.crear(cliente), HttpStatus.CREATED);
+    }
+    @DeleteMapping("/eliminar/{dni}")
+    public void delete(@PathVariable(name = "dni") String dni){
+        clService.eliminar(dni);
     }
 }
