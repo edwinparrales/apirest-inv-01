@@ -1,6 +1,5 @@
 package epv.apirest.main;
 
-import epv.apirest.main.modelo.Cliente;
 import epv.apirest.main.servicio.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

@@ -11,24 +11,26 @@ import java.util.List;
 
 @RestController
 
-@RequestMapping("api/cliente")
-public class ClienteController {
+@RequestMapping
+@CrossOrigin(origins = "*")
+public class ClienteRestController {
     @Autowired
     ClienteService clService;
 
-    @GetMapping("/listar")
+    @GetMapping("api/cliente/listar")
     public ResponseEntity<List<Cliente>> list() {
 
         return new ResponseEntity<>(clService.listar(), HttpStatus.OK);
     }
 
-    @PostMapping("/crear")
+    @PostMapping("api/cliente/crear")
     public ResponseEntity<Cliente> save(@RequestBody Cliente cliente) {
 
         return new ResponseEntity<>(clService.crear(cliente), HttpStatus.CREATED);
     }
-    @DeleteMapping("/eliminar/{dni}")
+    @DeleteMapping("api/cliente/eliminar/{dni}")
     public void delete(@PathVariable(name = "dni") Long id){
+    	
         clService.eliminar(id);
     }
 }

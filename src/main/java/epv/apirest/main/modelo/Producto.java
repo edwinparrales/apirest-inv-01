@@ -1,6 +1,10 @@
 package epv.apirest.main.modelo;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -11,9 +15,13 @@ public class Producto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto")
     private Long id;
-    @Column(unique = true)
+
+    @Column(unique = true,nullable = false)
+    @NotEmpty(message = "El codigo no puede ser vacio")
     private String codigo;
-    @Column(length = 200)
+    @Column(length = 200,nullable = false)
+    @NotEmpty(message = "La descripcion no puede ser vacia")
+    @NotBlank
     private String descripcion;
     @Column(length = 80)
     private String capacidad;
@@ -21,6 +29,12 @@ public class Producto implements Serializable {
     private String modelo;
     @Column(length = 80)
     private String marca;
+    @Column(nullable = false)
+    @Min(1)
+    private Integer cantidad;
+    @Column(length = 80)
+    private String categoria;
+    @Column(nullable = false)
     private Double valor;
 
     public Long getId() {
@@ -79,16 +93,29 @@ public class Producto implements Serializable {
         this.valor = valor;
     }
 
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
     @Override
     public String toString() {
-        return "Producto{" +
-                "id=" + id +
-                ", codigo='" + codigo + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", capacidad='" + capacidad + '\'' +
-                ", modelo='" + modelo + '\'' +
-                ", marca='" + marca + '\'' +
-                ", valor=" + valor +
-                '}';
+        return "Producto{" + "id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + ", capacidad=" + capacidad + ", modelo=" + modelo + ", marca=" + marca + ", cantidad=" + cantidad + ", categoria=" + categoria + ", valor=" + valor + '}';
     }
+
+   
+    
+
+
 }

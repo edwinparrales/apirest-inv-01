@@ -1,10 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Custom styles for this template-->
+        <link th:rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}" />
+        <link th:rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
+
+
+
+
+        <title>Pag-Clientes</title>
+
+
+    </head>
+    <body>
+        <div id="mensaje"></div>
+        <header th:replace="plantilla :: header"></header>
+
+
+        <a class="btn btn-primary m-4" th:href="@{cliente-formulario}">Nuevo..</a>
+        <!-- DataTales Example -->
+
+        <div class="container card shadow mb-4 col-md-12 col-sm-10">
+
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">CLIENTES DEL
+                    SISTEMA POS</h6>
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="tabla-clientes" width="90%"
+                           cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nombres</th>
+                                <th>Documento</th>
+                                <th>Ciudad</th>
+                                <th>Barrio</th>
+                                <th>Direccion</th>
+                                <th>Telefono</th>
+                                <th>Email</th>
+                                <th>Acciones</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr th:each="cliente:${clientes}">
+                                <th th:text="${cliente.id}" id="id"></th>
+                                <th th:text="${cliente.nombre}"></th>
+                                <th th:text="${cliente.documento}"></th>
+                                <th th:text="${cliente.ciudad}"></th>
+                                <th th:text="${cliente.barrio}"></th>
+                                <th th:text="${cliente.direccion}"></th>
+                                <th th:text="${cliente.telefono}"></th>
+                                <th th:text="${cliente.email}"></th>
+
+                                <th><a  class="btn btn-danger" th:id="${cliente.id}" th:onclick="eliminar(event)">Eliminar</a>
+                                    <a th:href="@{cliente-formulario/}+${cliente.id}"
+                                       class="btn btn-warning btn-circle btn-sm"> <i
+                                            class="fas fa-pen"></i>Editar
+                                    </a>
+                                </th>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <footer th:replace="plantilla :: footer"></footer>
+
+        <script type="text/javascript" th:src="@{/jQuery/jquery-3.6.0.js}"></script>
+        <script type="text/javascript" th:src="@{/Bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $.get("/api/cliente/listar",function (data){
+                   /// console.log("data",data);
+                })
+            })
+            function eliminar(id) {
+                let res = confirm("Esta seguro de eliminar el registro");
+                if(res){
+                    console.log("id",id.target.id);
+                    $.get("cliente/eliminar/"+id.target.id,function (data) {
+                        //location.reload();
+
+
+                    }).fail(function (data){
+                         let divmsj =  $("#mensaje");
+                         console.log(divmsj);
+                         divmsj.innerHTML = '<div th:text="${errorMsj}"></div>';
+                        //console.log("error",data)
+                        //Probar pintar error enviado desde el controlador
+                        //en html para hacer uso de thymeleaf
+                    });
+                }else{
+                    return;
+                }
+
+            }
+
+        </script>
+
+    </body>
 </html>
